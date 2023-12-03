@@ -84,3 +84,17 @@
     
 })(jQuery);
 
+var loadFile = function(event,width,height) {
+	var previewImage = document.getElementById('preview');
+	previewImage.src = URL.createObjectURL(event.target.files[0]);
+	if(height){
+
+		previewImage.height = height ;
+	}
+	if(width){
+
+		previewImage.width = width ;
+	}
+
+	
+};

@@ -1,73 +1,95 @@
 @extends ('backend.master')
-@section ('content')
+@section('title', 'Booking List')
+@section('content')
 
-{{-- web.booking.store --}}
+    {{-- web.booking.store --}}
 
-<div class="container mt-4">
-    <h2> Booking List </h2>
-    <br>
-   <a class="btn btn-success" href="{{route('web.booking.store')}}"> create</a>
- <br>
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col"> ID</th>
-      <th scope="col"> sender_name</th>
-      <th scope="col"> sender_email</th>
-      <th scope="col">sender_contact</th>
-      <th scope="col">sender_address</th>
+    <div class="container mt-4">
+        <h2> Booking List </h2>
+        <br>
 
-      <th scope="col"> receiver_name</th>
-      <th scope="col"> receiver_email</th>
-      <th scope="col"> receiver_contact</th>
-      <th scope="col"> receiver_address</th>
+        <br>
+        <table class="table table-responsive">
+            <thead>
+                <tr>
+                    <th scope="col"> #BOOKING ID</th>
+                    <th scope="col"> USER</th>
+                    <th scope="col"> FROM</th>
+                    <th scope="col">To</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Status</th>
 
-      <th scope="col"> quantity</th>
-      <th scope="col"> description</th>
-      <th scope="col"> date</th>
-      <th scope="col"> Category_type</th>
-      <th scope="col"> weight_range</th>
-      <th scope="col"> price</th>
+                    <th scope="col"> ACTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($booking as $key => $item)
+                    <tr>
+                        <th scope="row">{{ $item->booking_id }}</th>
+                        <td>
+                            {{$item->user->name}}
+
+                        </td>
+                        <td>
+                            {{ $item->sender_name }}
+                            <br>
+                            {{ $item->sender_email }}
+                            <br>
+                            {{ $item->sender_contact }}
+                            <br>
+                            {{ $item->sender_location }}
+                            <br>
+                            {{ $item->sender_address }}
+                        </td>
 
 
-      <th scope="col"> Action</th>
-    </tr>
-  </thead>
-  <tbody>
-   @foreach($booking as $key=>$item)
-    <tr>
-      <th scope="row">{{$key+1}}</th>
-      <td>{{$item->sender_name}}</td>
-      <td>{{$item->sender_email}}</td>
-      <td>{{$item->sender_contact}}</td>
-      <td>{{$item->sender_address}}</td>
+                        <td>
+                            {{ $item->receiver_name }}
+                            <br>
+                            {{ $item->receiver_email }}
+                            <br>
+                            {{ $item->receiver_contact }}
+                            <br>
+                            {{ $item->receiver_location }}
 
-      <td>{{$item->receiver_name}}</td>
-      <td>{{$item->receiver_email}}</td>
-      <td>{{$item->receiver_contact}}</td>
-      <td>{{$item->receiver_address}}</td>
+                            <br>
+                            {{ $item->receiver_address }}
+                        </td>
+                        <td>
+                          {!! env('CURRENCY') !!}  {{ $item->price }}
+                            
+                        </td>
+                        <td>
+                            @if ($item->is_confirm)
+                                <span class="badge bg-success text-white">Confirmed</span>
+                                @else
+                                <span class="badge bg-secondary text-white">Pending</span>
+                            @endif
+                        </td>
+                     
 
-      <td>{{$item->quantity}}</td>
-      <td>{{$item->description}}</td>
-      <td>{{$item->date}}</td>
-      <td>{{$item->Category_type}}</td>
-      <td>{{$item->weight_range}}</td>
-      <td>{{$item->price}}</td>
 
-      <td>
-        <a class="btn btn-success" href="">View</a>
-        <a class="btn btn-warning" href="">Edit</a>
-        <a class="btn btn-danger" href="">Delete</a>
-      </td>
-    </tr>
 
-    @endforeach
 
-  </tbody>
-</table>
+                        <td>
+                            <a class="btn btn-success btn-sm" href="{{route('get.booking',$item->id)}}">
+                              View
+                            </a>
+                            {{-- <a class=" " href="">
+                                <i class="fa-solid fa-pen-to-square"></i>
+                            </a>
+                            <a class=" btn-sm" href="">
+                                <i class="fa-solid fa-trash"></i>
+                            </a> --}}
+                        </td>
+                    </tr>
+                @endforeach
 
-{{$booking->links()}}
+            </tbody>
+        </table>
 
-</div>
+        {{ $booking->links() }}
+
+    </div>
 
 @endsection

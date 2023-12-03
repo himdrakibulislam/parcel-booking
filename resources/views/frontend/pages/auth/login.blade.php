@@ -29,7 +29,7 @@
 </style>
 <body>
 <div class="login-form">
-    <form action="{{route('do.login')}}" method="post">
+    <form action="{{url('login')}}" method="POST">
         @csrf
     @if($errors->any())
 
@@ -42,7 +42,9 @@
 
         <h2 class="text-center">Log In</h2>
         <div class="form-group">
-            <input name="email" type="text" class="form-control" placeholder="Email" required="required">
+            <input name="email"
+            value="{{old('email')}}"
+            type="text" class="form-control" placeholder="Email" required="required">
         </div>
         <div class="form-group">
             <input name="password" type="password" class="form-control" placeholder="Password" required="required">
@@ -51,7 +53,7 @@
             <button type="submit" class="btn btn-success btn-lg btn-block">Log in</button>
         </div>
             <p>Dont have account<a href="{{route('registration')}}" class="float-right btn btn-success">Register</a></p>
-    </form>
+    </form> 
 
 </div>
 </body>

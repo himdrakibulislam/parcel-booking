@@ -1,27 +1,14 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\SendercustomerController;
-use App\Http\Controllers\ReceivercustomerController;
-use App\Http\Controllers\AdminController;
-use App\Http\Controllers\ShipmentController;
-use App\Http\Controllers\BookingController;
-//use App\Http\Controllers\InvoiceController;
-use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\PaymentController;
-use App\Http\Controllers\ReportController;
-use App\Http\Controllers\CategoryController;
-
+use App\Http\Controllers\SslCommerzPaymentController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Website\HomeController;
 use App\Http\Controllers\Website\LoginController;
-use App\Http\Controllers\Website\RegistrationController;
-//use App\Http\Controllers\Website\NewShipmentController;
 
 use App\Http\Controllers\Website\AboutController;
-use App\Http\Controllers\Website\ContactController;
 use App\Http\Controllers\Website\Booking1Contoller;
-use App\Http\Controllers\WeightController;
+use App\Http\Controllers\Website\FrontController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,98 +21,63 @@ use App\Http\Controllers\WeightController;
 |
 */
 
-
+// auth 
+require __DIR__.'/auth.php';
+// admin 
+require __DIR__.'/admin.php';
 //............................Frontend Routes..........................................................
 
-Route::get('/',[HomeController::class,'home'])->name('home');
-Route::get('/registration',[LoginController::class,'registration'])->name('registration');
-Route::post('/do_registration',[LoginController::class,'doRegistration'])->name('do.registration');
-//doreg==
+Route::get('/', [HomeController::class, 'home'])->name('home');
+Route::controller(FrontController::class)->group(function () {
+    Route::get('/price','price');
+    Route::get('/contact','contact');
+});
+
 Route::get('/login',[LoginController::class,'login'])->name('login');
-Route::post('/do_login',[LoginController::class,'do_login'])->name('do.login');
-Route::get('customer_logout',[LoginController::class,'logout'])->name('customer.logout');
+Route::get('/registration',[LoginController::class,'registration'])->name('registration');
+Route::middleware('auth')->controller(LoginController::class)->group(function () {
+   
+    Route::get('/profile', 'profile')->name('user.profile');
+    
+    Route::post('/update-profile', 'update_profile');
+
+    Route::get('/security', 'change_password')->name('change.profile');
+
+    Route::get('customer_logout', 'logout')->name('customer.logout');
+});
+
+// booking
+Route::get('/booking/view/receiver',[Booking1Contoller::class,'receiverview']);
+Route::middleware('auth')->controller(Booking1Contoller::class)->group(function () {
+    Route::get('/booking', 'booking1')->name('booking');
+    Route::post('/booking-store', 'store')->name('booking.store');
+    Route::get('/booking/pay', 'pay')->name('booking.pay');
+    Route::get('/my-bookings', 'mybookings')->name('user.bookings');
+    Route::post('/booking-condition', 'condition')->name('booking.condition');
+    Route::get('/booking/tracking/{id}', 'tracking')->name('booking.tracking');
+    // download
+    Route::get('/booking/download/{id}', 'download_booking')->name('booking.download');
+});
 
 
-// Route::get('/registration',[RegistrationController::class,'registration'])->name('registration');
-
-Route::get('/booking1',[Booking1Contoller::class,'booking1'])->name('booking1');
-Route::post('/web_booking-store',[Booking1Contoller::class,'store'])->name('web.booking.store');
+// SSLCOMMERZ Start
 
 
-Route::get('/about',[AboutController::class,'about'])->name('about');
+Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+//SSLCOMMERZ END
+
+
+Route::get('/about', [AboutController::class, 'about'])->name('about');
 
 // Route::get('/contact',[ContactController::class,'contact'])->name('contact');
 
-
-
-
-//...................................Backend Routes...................................
-
-// Route::group(['middleware'=>'auth'], function(){  });
-
-
-Route::get('/dashboard',[DashboardController::class,'dashboard']) ->name('dashboard');
-
-
-Route::get('/sender',[SendercustomerController::class,'sender']) ->name ('sender');
-Route::get('/sender-create',[SendercustomerController::class,'submit']) ->name ('sender.submit');
-Route::post('/sender-store',[SendercustomerController::class,'store']) ->name ('sender.store');
-
-
-Route::get('/receiver',[ReceivercustomerController::class,'receiver']) ->name('receiver');
-Route::get('/receiver-create',[ReceivercustomerController::class,'accept']) ->name ('receiver.accept');
-Route::post('/receiver-store',[ReceivercustomerController::class,'store']) ->name ('receiver.store');
-
-
-//admin panel route
-
-
-
-Route::get('/admin',[AdminController::class,'admin']) ->name('admin');
-
-
-
-Route::get('/shipment',[ShipmentController::class,'shipment']) ->name('shipment');
-Route::get('/shipment-create',[ShipmentController::class,'sendera']) ->name('shipment.sendera');
-Route::post('/shipment-store',[ShipmentController::class,'store']) ->name ('shipment.store');
-
-//category
-Route::get('/category',[CategoryController::class,'category']) ->name('category');
-Route::get('/category-create',[CategoryController::class,'agree']) ->name('category.agree');
-Route::post('/category-store',[CategoryController::class,'store']) ->name ('category.store');
-
-
-//weight
-Route::get('/weight',[WeightController::class,'weight']) ->name('weight');
-Route::get('/weight-create',[WeightController::class,'agreed']) ->name('weight.agreed');
-Route::post('/weight_store',[WeightController::class,'weightStore']) ->name ('weight.store');
-
-
-
-
-
-
-
-Route::get('/booking',[BookingController::class,'booking']) ->name('booking');
-Route::get('/booking-create',[BookingController::class,'accept']) ->name ('booking.accept');
-Route::post('/booking-store',[BookingController::class,'store']) ->name ('booking.store');
-
-
-
-Route::get('/payment',[PaymentController::class,'payment']) ->name('payment');
-Route::get('/payment-create',[PaymentController::class,'submit']) ->name ('payment.submit');
-Route::post('/payment-store',[PaymentController::class,'store']) ->name ('payment.store');
-
-
-
-
-
-Route::get('/warehouse',[WarehouseController::class,'warehouse']) ->name('warehouse');
-
-
-
-Route::get('/report',[ReportController::class,'report']) ->name('report');
-Route::get('/booking-report',[ReportController::class,'booking_report']) ->name('booking.report');
 
 
 

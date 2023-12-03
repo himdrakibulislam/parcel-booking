@@ -2,51 +2,51 @@
 
 namespace App\Http\Controllers\website;
 
-use App\Models\sender;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Traits\ProcessImage;
 use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-
-    public function registration(){
+    use ProcessImage;
+    public function registration()
+    {
         return view('frontend.pages.auth.registration');
     }
-    //do reggg
-    public function doRegistration(Request $request){
-        // dd($request->all());
-        $request->validate([
-            'name'=>'required',
-            'email'=>'required',
-            'password'=>'required',
-        ]);
-        sender::create([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'password'=>bcrypt($request->password),
-        ]);
-        return to_route('login');
-    }
-    public function login ()
+
+    public function login()
     {
         return view('frontend.pages.auth.login');
     }
-    public function do_login(Request $request){
-        // dd($request->all());
-        $credentials=$request->except('_token');
-        // dd($credentials);
-
-        if(auth()->attempt($credentials)){
-
-            return to_route('home');
-        }
-        else {
-            return to_route('login');
-        }
+    public function change_password()
+    {
+        return view('frontend.pages.auth.change-password');
     }
-    public function logout(){
-        session()->flush();
+    public function profile()
+    {
+        return view('frontend.pages.auth.profile');
+    }
+    public function update_profile(Request $request)
+    {
+
+        // $request->validate([
+        //     'profile' => 'dimensions:width=200,height=200'
+        // ]);
+        $data = [];
+        $data['contact'] = $request->contact;
+        $data['address'] = $request->address;
+        if ($request->hasFile('profile')) {
+            $data['profile'] = $this->upload_without_modify($request->profile, 'uploads/user/', $request->user()->profile);
+        }
+
+        $request->user()->update($data);
+        return redirect()->back();
+    }
+
+    public function logout()
+    {
+        
         Auth::logout();
         return to_route('home');
     }
