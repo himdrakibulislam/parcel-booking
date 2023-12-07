@@ -30,8 +30,9 @@
 </div>
 <div class="container-fluid p-0">
     <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-lg-5">
-        <a href="/" class="navbar-brand ml-lg-3">
+        <a href="/" class="navbar-brand ml-lg-3 text-center">
             <h1 class="m-0 display-5 text-uppercase text-primary"><i class="fa fa-truck mr-2"></i></h1>
+            <small><b>TRANSPORT</b></small>
         </a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -43,7 +44,11 @@
                 
                 <a href="{{ route('booking') }}" class="nav-item nav-link {{ request()->is('booking') ? 'active' : '' }}">Booking
                 </a>
+                
+                <a href="{{url('/category')}}" class="nav-item nav-link {{ request()->is('category') ? 'active' : '' }}">Category</a>
+
                 <a href="{{url('/price')}}" class="nav-item nav-link {{ request()->is('price') ? 'active' : '' }}">Price</a> 
+                
                 <a href="{{ route('user.bookings') }}" class="nav-item nav-link {{ request()->is('my-bookings') ? 'active' : '' }}">Tracking</a>
                 <div class="nav-item dropdown">
 

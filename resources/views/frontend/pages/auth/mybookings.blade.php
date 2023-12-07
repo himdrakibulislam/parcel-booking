@@ -102,6 +102,14 @@
                                             {{ $row->payment_type }}</small>
                                     </th>
                                 </tr>
+                                <tr>
+                                    <th>Time Slot</th>
+                                    <th>
+                                        <small>
+        
+                                            {{ $row->time_slot }}</small>
+                                    </th>
+                                </tr>
                                 @if ($row->rider)
                                     <tr>
                                         <th>Rider</th>

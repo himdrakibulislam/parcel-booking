@@ -29,6 +29,7 @@ require __DIR__.'/admin.php';
 
 Route::get('/', [HomeController::class, 'home'])->name('home');
 Route::controller(FrontController::class)->group(function () {
+    Route::get('/category','category');
     Route::get('/price','price');
     Route::get('/contact','contact');
 });

@@ -158,6 +158,9 @@
                                             <option value="3PM-9PM">
                                                  3PM - 9AM
                                             </option>
+                                            <option value="09AM-04PM">
+                                                09 AM-04 PM
+                                            </option>
                                         </select>
                                     </div>
                                 </div>
@@ -233,9 +236,11 @@
             // If matches exist, get the first number
             const extractedNumber = matches ? parseInt(matches[0]) : null;
 
-            if (extractedNumber >= 50) {
+            if (extractedNumber >= 20) {
                 vehicle.value = 'Truck';
                 timeSlot.classList.add("d-none");
+                timeSlot.value = '09AM-04PM';
+                // set rider
                 setRider(riders);
             } else {
                 vehicle.value = 'Bike';

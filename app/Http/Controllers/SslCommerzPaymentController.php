@@ -75,7 +75,7 @@ class SslCommerzPaymentController extends Controller
                 $booking->status = 'pending';
                 $booking->update();
                 // echo "<br >Transaction is successfully Completed";
-                return view('frontend.pages.booking.success');
+                return view('frontend.pages.booking.success')->with('status','Transaction is successfully Completed');
             }
     
     }
