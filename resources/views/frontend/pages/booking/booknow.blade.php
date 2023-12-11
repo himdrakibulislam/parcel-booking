@@ -145,7 +145,7 @@
                                     </div>
                                 </div>
                                 <div class="col-md-6">
-                                    <div class="form-group ">
+                                    <div class="form-group" id="time_range">
                                         <label for="time" class="text-dark">Time Slot</label>
                                         <select 
                                         name="time_slot" 
@@ -218,6 +218,8 @@
         var riders = JSON.parse(allriders);
         var riderDetails = document.getElementById('riderDetails');
         var riderID = document.getElementById('rider_id');
+        // time_range
+        var time_range = document.getElementById('time_range');
        
         // Add an event listener for the 'change' event
         dropdown.addEventListener("change", function() {
@@ -238,14 +240,16 @@
 
             if (extractedNumber >= 20) {
                 vehicle.value = 'Truck';
-                timeSlot.classList.add("d-none");
+           
+                timeSlot.disabled = true;
                 timeSlot.value = '09AM-04PM';
                 // set rider
                 setRider(riders);
             } else {
                 vehicle.value = 'Bike';
-                timeSlot.classList.remove("d-none");
-                setRider([])
+                timeSlot.value= ''
+                timeSlot.disabled = false;
+                setRider([]);
             }
 
         });
