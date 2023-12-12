@@ -136,6 +136,14 @@
                                     {{ $booking->payment_type }}</small>
                             </th>
                         </tr>
+                        <tr>
+                            <th>Time Slot</th>
+                            <th>
+                                <small>
+
+                                    {{ $booking->time_slot }}</small>
+                            </th>
+                        </tr>
 
                         @if ($booking->rider)
                             <tr>

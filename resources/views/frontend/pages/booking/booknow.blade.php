@@ -7,11 +7,11 @@
             <div class="bg-primary py-5 px-4 px-sm-5">
                 @if ($errors->any())
 
-                @foreach ($errors->all() as $err)
-                    <p class="alert alert-danger">{{ $err }}</p>
-                @endforeach
-    
-            @endif
+                    @foreach ($errors->all() as $err)
+                        <p class="alert alert-danger">{{ $err }}</p>
+                    @endforeach
+
+                @endif
                 <form action="{{ route('booking.store') }}" class="row" method="POST">
                     @csrf
 
@@ -42,7 +42,7 @@
                         <div class="form-group">
 
                             <textarea class="form-control" name="sender_address" id="" placeholder="Your Address" cols="10"
-                                rows="5">{{ $user->address }}</textarea>
+                                rows="5" required>{{ $user->address }}</textarea>
 
                         </div>
 
@@ -134,12 +134,8 @@
                                     <div class="form-group">
                                         <div class="form-group mx-2">
                                             <label for="date" class="text-dark">Date</label>
-                                            <input 
-                                            id="datetime" type="date"
-                                            class="form-control"
-                                            
-                                            name="date"
-                                            required>
+                                            <input id="datetime" type="date" class="form-control" name="date"
+                                                required>
                                         </div>
 
                                     </div>
@@ -147,24 +143,20 @@
                                 <div class="col-md-6">
                                     <div class="form-group" id="time_range">
                                         <label for="time" class="text-dark">Time Slot</label>
-                                        <select 
-                                        name="time_slot" 
-                                        onchange="getRider()"
-                                        class="form-control" id="timeslot" >
+                                        <select name="time_slot" onchange="getRider()" class="form-control"
+                                            id="timeslot">
                                             <option value="">Select Time</option>
                                             <option value="09AM-3PM">
                                                 09 AM - 3PM
                                             </option>
                                             <option value="3PM-9PM">
-                                                 3PM - 9AM
+                                                3PM - 9AM
                                             </option>
-                                            <option value="09AM-04PM">
-                                                09 AM-04 PM
-                                            </option>
+
                                         </select>
                                     </div>
                                 </div>
-                               
+
                             </div>
                             <div id="result" class="mt-3"></div>
                             <div class="mb-4">
@@ -220,7 +212,7 @@
         var riderID = document.getElementById('rider_id');
         // time_range
         var time_range = document.getElementById('time_range');
-       
+
         // Add an event listener for the 'change' event
         dropdown.addEventListener("change", function() {
             // Get the selected option
@@ -240,15 +232,36 @@
 
             if (extractedNumber >= 20) {
                 vehicle.value = 'Truck';
-           
-                timeSlot.disabled = true;
-                timeSlot.value = '09AM-04PM';
+
+                var indicesToRemove = [0,1, 2]; // Change these indices based on your requirement
+
+                // Remove options in reverse order to avoid index shifting
+                for (var i = indicesToRemove.length - 1; i >= 0; i--) {
+                    var indexToRemove = indicesToRemove[i];
+                    // Ensure the index is valid before removing
+                    if (indexToRemove >= 0 && indexToRemove < timeSlot.options.length) {
+                        timeSlot.remove(indexToRemove);
+                    }
+                }
+
+                const truckOption = document.createElement('option');
+                truckOption.value = '09AM-04PM';
+                truckOption.text = '09 AM-04 PM';
+                timeSlot.appendChild(truckOption);
                 // set rider
                 setRider(riders);
             } else {
                 vehicle.value = 'Bike';
-                timeSlot.value= ''
-                timeSlot.disabled = false;
+                timeSlot.value = '';
+                timeSlot.innerHTML = `
+                <option value="">Select Time</option>
+                <option value="09AM-3PM">09 AM - 3PM
+                </option>
+                <option value="3PM-9PM">
+                3PM - 9AM
+                </option>
+    `;
+
                 setRider([]);
             }
 
@@ -256,11 +269,11 @@
 
 
         function getRider() {
-            
+
             // Get the value from the datetime-local input
-            
-            const slot = timeSlot.value            
-            
+
+            const slot = timeSlot.value
+
             // filter riders based on hour
             const filterRider = riders.filter((rider) => rider.duty_time.toLocaleUpperCase() === slot.toLocaleUpperCase());
             setRider(filterRider);
@@ -279,6 +292,6 @@
             } else {
                 riderDetails.innerHTML = `<h3>No Rider Found</h3>`
             }
-          }
+        }
     </script>
 @endpush
