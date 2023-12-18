@@ -66,6 +66,7 @@ class Booking1Contoller extends Controller
             'receiver_location' => $request->receiver_location,
             'receiver_address' => $request->receiver_address,
             'quantity' => $request->quantity,
+            'special_package' => $request->special_package ? TRUE : FALSE,
             'description' => $request->description,
             'date' => $request->date,
             'category_type' => $request->category_type,
@@ -108,7 +109,7 @@ class Booking1Contoller extends Controller
 
         if($booking){
             $booking->status = 'pending';
-            $booking->payment_type = 'Cash-On-Delivary/Condition';
+            $booking->payment_type = 'Cash-On-Delivary';
             $booking->update();
             return redirect('/')->with('status','Your booking is successfull.');
         }else{

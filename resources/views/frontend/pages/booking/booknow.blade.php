@@ -83,13 +83,9 @@
                     <div class="col-12">
                         <h1>Booking Details</h1>
                     </div>
+
                     <div class="col-md-6">
 
-
-                        <div class="form-group">
-                            <input type="number" name="quantity" class="form-control border-0 p-4"
-                                placeholder="Courier quantity" required="required" />
-                        </div>
 
 
                         <div class="form-group">
@@ -99,6 +95,11 @@
                                     <option value="{{ $category->id }}">{{ $category->Name }}</option>
                                 @endforeach
                             </select>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="number" name="quantity" class="form-control border-0 p-4"
+                                placeholder="Courier quantity" required="required" />
                         </div>
 
                         <div class="form-group">
@@ -113,7 +114,12 @@
                                 @endforeach
                             </select>
                         </div>
-
+                        <div class="form-froup my-4">
+                            <label for="sp" class="text-dark pb-2">Special Package (+50
+                                {!! env('CURRENCY') !!})</label>
+                            <input type="checkbox" class="d-inline form-control w-25" name="special_package"
+                                id="specialPackage">
+                        </div>
                         <div class="row">
                             <div class="form-group col-6">
                                 <label class="text-dark" for="price">Amout {!! env('CURRENCY') !!}</label>
@@ -212,8 +218,10 @@
         var riderID = document.getElementById('rider_id');
         // time_range
         var time_range = document.getElementById('time_range');
+        // special package 
+        var specialPackage = document.getElementById('specialPackage');
 
-        // Add an event listener for the 'change' event
+        // Add an event listener for the 'rider' event
         dropdown.addEventListener("change", function() {
             // Get the selected option
             var selectedOption = dropdown.options[dropdown.selectedIndex];
@@ -233,7 +241,7 @@
             if (extractedNumber >= 20) {
                 vehicle.value = 'Truck';
 
-                var indicesToRemove = [0,1, 2]; // Change these indices based on your requirement
+                var indicesToRemove = [0, 1, 2]; // Change these indices based on your requirement
 
                 // Remove options in reverse order to avoid index shifting
                 for (var i = indicesToRemove.length - 1; i >= 0; i--) {
@@ -259,12 +267,26 @@
                 </option>
                 <option value="3PM-9PM">
                 3PM - 9AM
-                </option>
-    `;
+                </option>`;
 
                 setRider([]);
             }
 
+        });
+
+        // special offer 
+        specialPackage.addEventListener('change', function() {
+            // Check if the checkbox is checked
+            let currentPrice = parseInt(price.value); 
+            if (specialPackage.checked) {
+                if(price.value){
+                    price.value =  currentPrice + 50;
+                }else{
+                    alert('Please select weight range first')
+                }
+            } else {
+                price.value =  currentPrice - 50;
+            }
         });
 
 

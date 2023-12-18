@@ -29,6 +29,7 @@ class booking extends Model
         'receiver_location',
         'receiver_address',
         'quantity',
+        'special_package',
         'description',
         'date',
         'category_type',

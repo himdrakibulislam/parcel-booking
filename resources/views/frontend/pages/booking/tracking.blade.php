@@ -107,6 +107,7 @@
         <div class="card px-2">
             <div class="row px-3">
                 <div class="col">
+                    
                     <ul id="progressbar">
                         <li class="step0  {{ $booking->status == 'pending' || 'delivered' || 'processing' ? 'active' : '' }}"
                             id="step1">PENDING</li>
@@ -221,7 +222,10 @@
                                     {{ $booking->time_slot }}</small>
                             </th>
                         </tr>
-
+                        <tr>
+                            <th>Packaging</th>
+                            <th><span class="badge bg-white"> {{ $booking->special_package ? 'SPECIAL' : 'REGULAR' }}</span></th>
+                        </tr>
                         @if ($booking->rider)
                             <tr>
                                 <th>Rider</th>

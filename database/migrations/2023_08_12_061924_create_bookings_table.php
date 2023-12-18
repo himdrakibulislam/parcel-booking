@@ -37,6 +37,7 @@ return new class extends Migration
             $table->text('receiver_address');
 
             $table->integer('quantity')->nullable();
+            $table->boolean('special_package')->nullable();
             $table->text('description')->nullable();
             $table->date('date')->nullable();
             $table->string('category_type')->nullable();

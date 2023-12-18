@@ -7,6 +7,7 @@ use App\Models\booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Mail;
+use Barryvdh\DomPDF\Facade\Pdf as PDF;
 
 class BookingController extends Controller
 {
@@ -59,6 +60,15 @@ class BookingController extends Controller
     {
          booking::destroy($id);
         return redirect()->route('admin.booking')->with('status','Booking Removed');
+    }
+    public function downloadbooikng(int $id)
+    {
+        $courier = booking::findOrFail($id);
+        if($courier){
+            $pdf = PDF::loadView('frontend.pages.booking.invoice', compact('courier'));
+
+            return $pdf->download('invoice.pdf');
+        }
     }
     
 }

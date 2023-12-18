@@ -50,6 +50,8 @@
                         
                         <span class="badge bg-success text-white">Confirmed</span>
                     @endif
+
+                    <a class="float-right btn btn-success btn-sm" href="{{route('download.booking',$booking->id)}}"><i class="fas fa-file-download"></i> Download Invoice</a>
                 </div>
             
             <div class="col-md-6 border-right">

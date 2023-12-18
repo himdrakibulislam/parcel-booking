@@ -118,23 +118,16 @@ Route::middleware('admin')->prefix('admin')->controller(BookingController::class
     Route::put('/booking/confirm/{id}', 'confirm_booking')->name('confirm.booking');
 
     Route::delete('/booking/delete/{id}', 'delete_booking')->name('delete.booking');
+
+    Route::get('/booking/download/{id}', 'downloadbooikng')->name('download.booking');
     
     
 });
 
+// report 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Route::middleware('admin')->prefix('admin')->controller(ReportController::class)->group(function () {
+       Route::get('/report','report')->name('report');
+       Route::get('/report-status-wise','report_staus_wise');
+    
+});

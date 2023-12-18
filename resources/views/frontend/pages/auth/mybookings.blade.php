@@ -110,6 +110,10 @@
                                             {{ $row->time_slot }}</small>
                                     </th>
                                 </tr>
+                                <tr>
+                                    <th>Packaging</th>
+                                    <th><span class="badge bg-white"> {{ $row->special_package ? 'SPECIAL' : 'REGULAR' }}</span></th>
+                                </tr>
                                 @if ($row->rider)
                                     <tr>
                                         <th>Rider</th>
