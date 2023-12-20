@@ -122,7 +122,7 @@
                         </div>
                         <div class="row">
                             <div class="form-group col-6">
-                                <label class="text-dark" for="price">Amout {!! env('CURRENCY') !!}</label>
+                                <label class="text-dark" for="price">Amount {!! env('CURRENCY') !!}</label>
                                 <input type="number" id="price" name="price" class="form-control border-0 p-4"
                                     placeholder="price" required="required" readonly />
                             </div>

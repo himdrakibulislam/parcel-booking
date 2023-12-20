@@ -63,7 +63,7 @@
                     @csrf
 
                     <div class="border px-1 py-2 mb-2">
-                        <label for="condition">Cash on Delivery / Conditional</label>
+                        <label for="condition">Cash on Delivery </label>
                         <input type="checkbox" name="condition" id="" value="condition" required>
                         <input hidden type="text" name="booking_id" value="{{ $booking->id }}" id="">
                     </div>
