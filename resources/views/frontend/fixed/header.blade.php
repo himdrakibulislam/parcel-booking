@@ -32,7 +32,7 @@
     <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-lg-5">
         <a href="/" class="navbar-brand ml-lg-3 text-center">
             <h1 class="m-0 display-5 text-uppercase text-primary"><i class="fa fa-truck mr-2"></i></h1>
-            <small><b>{{env('APP_NAME')}}</b></small>
+            <small style="font-size: 20px;"><b>{{env('APP_NAME')}}</b></small>
         </a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>

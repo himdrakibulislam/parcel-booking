@@ -109,7 +109,7 @@ class Booking1Contoller extends Controller
 
         if($booking){
             $booking->status = 'pending';
-            $booking->payment_type = 'Cash-On-Delivary';
+            $booking->payment_type = 'Cash-On-Delivery';
             $booking->update();
             return redirect('/')->with('status','Your booking is successfull.');
         }else{
