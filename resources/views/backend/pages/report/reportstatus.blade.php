@@ -13,12 +13,15 @@
         </div>
 
         <h2> {{ $count_reports }} {{ request('status') }} Bookings </h2>
-        @if ($count_reports > 0)
+       
+        @if ($count_reports >  0)
             
         <table class="table table-responsive">
             <thead>
                 <tr>
                     <th scope="col"> #BOOKING ID</th>
+                    <th scope="col"> Date </th>
+                    <th scope="col"> Time Slot </th>
                     <th scope="col"> USER</th>
                     <th scope="col"> FROM</th>
                     <th scope="col">To</th>
@@ -32,6 +35,14 @@
                 @foreach ($reports as $key => $item)
                     <tr>
                         <th scope="row">{{ $item->booking_id }}</th>
+                        <td>
+                            {{Carbon\Carbon::parse($item->date)->format("d M , Y")}}
+  
+                        </td>
+                        <td>
+                            <span class="badge bg-info text-white">{{$item->time_slot}}</span>
+  
+                        </td>
                         <td>
                             {{$item->user->name}}
   
@@ -73,7 +84,10 @@
                             @endif
                         </td>
                      
- 
+  
+  
+  
+  
                         <td>
                             <a class="btn btn-success btn-sm" href="{{route('get.booking',$item->id)}}">
                               View

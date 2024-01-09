@@ -23,9 +23,10 @@
                 </tr>
             </thead>
             <tbody>
+                
                 @foreach ($category as $key => $item)
                     <tr>
-                        <th scope="row">{{ $key + 1 }}</th>
+                        <th scope="row">{{ $key + $count_starts }}</th>
                         <td>{{ $item->Name }}</td>
                         <td> 
                             @if ($item->Image)
@@ -33,14 +34,14 @@
                             class="rounded"
                             src="{{ $item->Image}}" alt="ct" width="50" height="50">
                             @else
-                            <p>Empty</p>
+                            <p>N/A</p>
                             @endif
                         </td>
                         <td>
                             @if ($item->Description)
                             {{ $item->Description }}
                             @else 
-                            <p>Empty</p>
+                            <p>N/A</p>
                             @endif
                         </td>
                         <td>{{ $item->status }}</td>

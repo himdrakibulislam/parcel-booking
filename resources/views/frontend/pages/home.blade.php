@@ -7,33 +7,6 @@
 
    
 
-
-        <!-- About Start -->
-        <div class="container-fluid py-5">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-5 pb-4 pb-lg-0">
-                        <img class="img-fluid w-100" src="{{asset('img/about.jpg')}}" alt="">
-                        
-                    </div>
-                    <div class="col-lg-7">
-                        
-                        <h1 class="mb-4">Trusted & Faster Logistic Service Provider</h1>
-                        <p class="mb-4">
-                          
-                        </p>
-                        
-                    </div>
-                </div>
-            </div>
-            <!-- Video Modal -->
-          
-        </div>
-        <!-- About End -->
-
-
-
-        <!-- Features Start -->
         <div class="container-fluid bg-secondary my-5">
             <div class="container">
                 <div class="row align-items-center">
@@ -61,6 +34,29 @@
                 </div>
             </div>
         </div>
+        <!-- About Start -->
+        <div class="container-fluid py-5">
+            <div class="container">
+                <div class="row align-items-center">
+                    <div class="col-lg-5 pb-4 pb-lg-0">
+                        <img class="img-fluid w-100" src="{{asset('img/about.jpg')}}" alt="">
+                        
+                    </div>
+                    <div class="col-lg-7">
+                        
+                        <h1 class="mb-4">Trusted & Faster Logistic Service Provider</h1>
+                        <p class="mb-4">
+                          
+                        </p>
+                        
+                    </div>
+                </div>
+            </div>
+            <!-- Video Modal -->
+          
+        </div>
+        <!-- About End -->
+
        
 
         <!-- Team Start -->

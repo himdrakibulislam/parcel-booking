@@ -10,8 +10,13 @@ class CategoryController extends Controller
 {
     public function category()
     {
-        $category = Category::paginate(5);
-        return view('backend.pages.category.category', compact('category'));
+        $perPage = 5;
+        $current_page = request()->input('page', 1);
+        $category = Category::paginate($perPage);
+        
+        $count_starts = (($current_page - 1) * $perPage) + 1;
+       
+        return view('backend.pages.category.category', compact('category','count_starts'));
     }
 
     public function agree()

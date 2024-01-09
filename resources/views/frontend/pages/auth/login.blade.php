@@ -53,6 +53,10 @@
             <button type="submit" class="btn btn-success btn-lg btn-block">Log in</button>
         </div>
             <p>Dont have account<a href="{{route('registration')}}" class="float-right btn btn-success">Register</a></p>
+
+            <a  href="{{url('admin/login')}}"
+            style="text-decoration: underline;"
+            >Admin Login</a>
     </form> 
 
 </div>

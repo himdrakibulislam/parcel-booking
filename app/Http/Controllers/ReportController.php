@@ -8,20 +8,34 @@ use Illuminate\Http\Request;
 
 class ReportController extends Controller
 {
-    public function report()
+    public function report(Request $request)
     {
-        $lastSevenDaysBookings = booking::where('created_at', '>=', Carbon::now()->subDays(7))
-            ->paginate(10);
-        $lastSevenDaysBookingsCount = booking::where('created_at', '>=', Carbon::now()->subDays(7))
-            ->count();
-        return view('backend.pages.report.report',compact('lastSevenDaysBookings','lastSevenDaysBookingsCount'));
+        $reports = [];
+        $lastSevenDaysBookingsCount = 0;
+
+        $startDate = $request->query('from');
+        $endDate = $request->query('to');
+
+        if ($startDate && $endDate) {
+           
+            $reports = booking::whereBetween('created_at', [$startDate, $endDate])->paginate(10);
+     
+
+        } else {
+            $reports = booking::where('created_at', '>=', Carbon::now()->subDays(7))
+                ->paginate(10);
+            $lastSevenDaysBookingsCount = booking::where('created_at', '>=', Carbon::now()->subDays(7))
+                ->count();
+        }
+    
+        return view('backend.pages.report.report', compact('reports', 'lastSevenDaysBookingsCount'));
     }
     public function report_staus_wise(Request $request)
     {
         $status =  $request->query('status');
-        $reports  =  booking::where('status',$status)->paginate(10);
-        $count_reports  = booking::where('status',$status)->count();
+        $reports  =  booking::where('status', $status)->paginate(10);
+        $count_reports  = booking::where('status', $status)->count();
 
-        return view('backend.pages.report.reportstatus',compact('reports','count_reports'));
+        return view('backend.pages.report.reportstatus', compact('reports', 'count_reports'));
     }
 }
