@@ -5,7 +5,6 @@
                 <small><i class="fa fa-phone-alt mr-2"></i>01580513838</small>
                 <small class="px-3">|</small>
                 <small><i class="fa fa-envelope mr-2"></i>shekshadeq@gmail.com</small>
-                <h3 class="text-white">Updated Version</h3>
             </div>
         </div>
         <div class="col-lg-6 text-center text-lg-right">
