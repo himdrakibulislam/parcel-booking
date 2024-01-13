@@ -5,7 +5,7 @@
                 <div class="col-md-6 mb-5">
                     <h3 class="text-primary mb-4">Get In Touch</h3>
                     <p><i class="fa fa-map-marker-alt mr-2"></i>123 Street, UTTARA, DHAKA BANGLADESH</p>
-                    <p><i class="fa fa-phone-alt mr-2"></i>01580513838</p>
+                    <p><i class="fa fa-phone-alt mr-2"></i>01580513838XXXX</p>
                     <p><i class="fa fa-envelope mr-2"></i>shekshadeq@gmail.com</p>
                     <div class="d-flex justify-content-start mt-4">
                         <a class="btn btn-outline-light btn-social mr-2" href="#"><i class="fab fa-twitter"></i></a>
