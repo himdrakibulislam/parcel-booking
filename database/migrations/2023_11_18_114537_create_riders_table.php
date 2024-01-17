@@ -14,11 +14,13 @@ return new class extends Migration
         Schema::create('riders', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('email');
+            $table->string('email')->unique();
             $table->string('phone')->nullable();
+            $table->string('password');
             $table->string('duty_time')->nullable();
-            $table->string('time_range_to')->nullable();
-            $table->string('time_range_from')->nullable();
+            $table->string('ip')->nullable();
+            $table->boolean('is_approved')->default(false);
+            
             $table->timestamps();
         });
     }

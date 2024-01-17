@@ -1,11 +1,17 @@
 @extends ('backend.master')
 @section('content')
     <div class="container">
-        <h4 class="text-uppercase">Dashboard</h4>
+        <div class="d-flex justify-content-between py-2">
+            <h4 class="text-uppercase">Dashboard</h4>
+            <form action="{{route('optimize')}}" method="post">
+                @csrf
+                <button type="submit" class="btn btn-outline-info">Optimize</button>
+            </form>
+        </div>
         <div class="row">
             <div class="col-md-6">
                 <div class="shadow rounded  p-4 ">
-                    <h2><b>Total Revenue </b></h2>
+                    <h2><b>Total Amount </b></h2>
                     <div class="d-flex my-2">
                         <h1 class="text-success mx-4"><i class="fa-solid fa-cart-shopping"></i></h1>
                         <h1 class="mx-2">

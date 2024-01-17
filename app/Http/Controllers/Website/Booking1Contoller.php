@@ -21,7 +21,7 @@ class Booking1Contoller extends Controller
         $weight = weight::all();
         $user = Auth::user();
         // $rider = Rider::inRandomOrder()->take(1)->first();
-        $rider = Rider::all();
+        $rider = Rider::where('is_approved',true)->get();
         $location = Location::all();
         return view('frontend.pages.booking.booknow', compact('categories', 'weight', 'user', 'rider','location'));
     }
@@ -141,6 +141,38 @@ class Booking1Contoller extends Controller
         }
        
     }
+    public function pay_with_stripe(Request $request){
+        $request->validate([
+            'stripeToken' => 'required',
+            'name_on_card' => 'required',
+            'booking_id' => 'required',
+        ]);
+        $user = Auth::user();
+        $booking = booking::whereId($request->booking_id)
+        ->where('user_id',$user->id)->first();
+        if($booking){
+           try {
+            $stripe = new \Stripe\StripeClient(env('STRIPE_API_SECRATE_KEY'));
+            
+            $response =   $stripe->charges->create([
+              'amount' => round(($booking->price / 109.71 )* 100),
+              'currency' => 'usd',
+              'source' => $request->stripeToken,
+              ]);
+              if($response->status == "succeeded"){
+                  $booking->tran_id =  $response->balance_transaction;
+                  $booking->payment_type =  'Stripe/'.$response->payment_method_details->card->brand;
+                  $booking->status = 'pending';
+                  $booking->update();
+                  return redirect('/')->with('status','Payment Successful');
+              }
+           } catch (\Throwable $th) {
+            return redirect()->back()->with('status','ERR! ');
+             
+           }
+        }
+        return "ERROR! Invalid Request.";
+    }
 
     public function download_booking(int $id){
         $courier = booking::findOrFail($id);
@@ -150,4 +182,5 @@ class Booking1Contoller extends Controller
             return $pdf->download('invoice.pdf');
         }
     }
+
 }

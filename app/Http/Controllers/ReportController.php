@@ -13,8 +13,8 @@ class ReportController extends Controller
         $reports = [];
         $lastSevenDaysBookingsCount = 0;
 
-        $startDate = $request->query('from');
-        $endDate = $request->query('to');
+        $startDate = $request->input('from');
+        $endDate = $request->input('to');
 
         if ($startDate && $endDate) {
            

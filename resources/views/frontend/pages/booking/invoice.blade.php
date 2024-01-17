@@ -109,21 +109,17 @@
                     <table>
                         <tr>
                             <td class="title">
-                                <img
-                                    src="https://creazilla-store.fra1.digitaloceanspaces.com/icons/3202195/truck-icon-md.png"
-                                    style="width: 100%; max-width: 100px"
-                                />
-                                <br>
+                                
                                 <b>{{ env('APP_NAME') }}</b>
                                 <br>
                                 <br>
-                                <small>  123 Street, UTTARA</small>
+                                <small>123 Street, Uttara,</small>
                                  <br>
-                                <small>  DHAKA BANGLADESH</small>
+                                <small>Dhaka, Bangladesh.</small>
                                  <br>
                                  <a href="tel:01580513838">01580513838</a>
                                  <br>
-                                <small> shekshadeq@gmail.com</small>
+                                <small>shadeqtransport@gmail.com</small>
                                
                             </td>
 

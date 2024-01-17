@@ -2,28 +2,44 @@
     <div class="row py-2 px-lg-5">
         <div class="col-lg-6 text-center text-lg-left mb-2 mb-lg-0">
             <div class="d-inline-flex align-items-center text-white">
-                <small><i class="fa fa-phone-alt mr-2"></i>01580513838</small>
+                <small><i class="fa fa-phone-alt mr-2"></i>{{Cache::get('store')->phone}}</small>
                 <small class="px-3">|</small>
-                <small><i class="fa fa-envelope mr-2"></i>shekshadeq@gmail.com</small>
+                <small><i class="fa fa-envelope mr-2"></i>{{Cache::get('store')->email}}</small>
             </div>
         </div>
         <div class="col-lg-6 text-center text-lg-right">
             <div class="d-inline-flex align-items-center">
-                <a class="text-white px-2" href="">
+               
+                @if (Cache::get('store')->facebook)
+                <a class="text-white px-2" target="_blank" href="{{Cache::get('store')->facebook}}">
                     <i class="fab fa-facebook-f"></i>
-                </a>
-                <a class="text-white px-2" href="">
+                </a> 
+                @endif
+                @if (Cache::get('store')->twitter)
+                <a class="text-white px-2" target="_blank" href="{{Cache::get('store')->twitter}}">
                     <i class="fab fa-twitter"></i>
                 </a>
-                <a class="text-white px-2" href="">
+                @endif
+                @if (Cache::get('store')->linkedin)
+                <a class="text-white px-2" target="_blank" href="{{Cache::get('store')->linkedin}}">
                     <i class="fab fa-linkedin-in"></i>
                 </a>
-                <a class="text-white px-2" href="">
+                @endif
+                @if (Cache::get('store')->instagram)
+                
+                <a class="text-white px-2" target="_blank" href="{{Cache::get('store')->instagram}}">
                     <i class="fab fa-instagram"></i>
                 </a>
-                <a class="text-white pl-2" href="">
+                @endif
+                @if (Cache::get('store')->youtube)
+            
+                <a class="text-white pl-2" target="_blank" href="{{Cache::get('store')->youtube}}">
                     <i class="fab fa-youtube"></i>
                 </a>
+                @endif
+
+
+               
             </div>
         </div>
     </div>
@@ -31,8 +47,13 @@
 <div class="container-fluid p-0">
     <nav class="navbar navbar-expand-lg bg-light navbar-light py-3 py-lg-0 px-lg-5">
         <a href="/" class="navbar-brand ml-lg-3 text-center">
-            <h1 class="m-0 display-5 text-uppercase text-primary"><i class="fa fa-truck mr-2"></i></h1>
-            <small style="font-size: 20px;"><b>{{env('APP_NAME')}}</b></small>
+            <img 
+            src="{{asset('img/logo.png')}}" 
+            {{-- class="w-100" --}}
+            width="200px"
+            height="100%"
+            alt="logo">
+          
         </a>
         <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
             <span class="navbar-toggler-icon"></span>
@@ -49,14 +70,14 @@
 
                 <a href="{{url('/price')}}" class="nav-item nav-link {{ request()->is('price') ? 'active' : '' }}">Price</a> 
                 
-                <a href="{{ route('user.bookings') }}" class="nav-item nav-link {{ request()->is('my-bookings') ? 'active' : '' }}">Tracking</a>
+        
                 <div class="nav-item dropdown">
 
                 </div>
-                <a href="{{ route('about') }}"
-                    class="nav-item nav-link {{ request()->is('about') ? 'active' : '' }}">About
+                <a href="{{ url('signup-rider') }}"
+                    class="nav-item nav-link {{ request()->is('signup-rider') ? 'active' : '' }}">Rider
                 </a>
-                <a href="{{url('/contact')}}" class="nav-item nav-link {{ request()->is('contact') ? 'active' : '' }}">Contact</a>
+                <a href="{{url('/contact')}}" class="nav-item nav-link {{ request()->is('contact') ? 'active' : '' }}">Contact Us</a>
             </div>
             @if (Auth::check())
                 <!-- Example single danger button -->

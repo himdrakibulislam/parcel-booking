@@ -1,7 +1,7 @@
 @extends('frontend.master')
 @section('content')
 @section('title', 'Contact')
-<div class="container ">
+<div class="container">
     <h3 class="text-center my-5">Contact Us</h3>
 
     <div class="row">
@@ -14,20 +14,31 @@
             
         </div>
         <div class="contact-form col-md-6">
-            <h1 class="title">Contact Us</h1>
-            <h2 class="subtitle">We are here assist you.</h2>
-            <form action="">
+            <h1 class="title text-muted">Contact Us</h1>
+            <h2 class="subtitle text-muted my-2">We are here assist you.</h2>
+            
+            @if ($errors->any())
+            <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+        @endif
+            <form action="{{route('contact.us')}}" method="POST">
+                @csrf
                 <div class="form-group">
-                    <input type="text" class="form-control" name="name" placeholder="Your Name" />
+                    <input type="text" class="form-control" name="name" placeholder="Your Name" required />
                 </div>
                 <div class="form-group">
-                    <input type="email" class="form-control" name="e-mail" placeholder="Your E-mail Adress" />
+                    <input type="email" class="form-control" name="email" placeholder="Your E-mail Adress" required/>
                 </div>
                 <div class="form-group">
                     <input type="tel" class="form-control" name="phone" placeholder="Your Phone Number" />
                 </div>
                 <div class="form-group">
-                    <textarea name="text" class="form-control" id="" rows="8" placeholder="Your Message"></textarea>
+                    <textarea name="message" class="form-control" id="" rows="8" placeholder="Your Message" required></textarea>
                 </div>
                 <button class="btn btn-info w-50">Submit</button>
             </form>

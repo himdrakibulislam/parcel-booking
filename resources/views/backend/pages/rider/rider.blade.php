@@ -5,9 +5,7 @@
     <div class="container">
         <div class="d-flex justify-content-between">
             <h2>  Delivery Man </h2>
-            <div >
-              <a class="btn btn-success" href="{{ route('rider.add') }}"> <i class="fa-solid fa-plus"></i> Add</a>
-            </div>
+            
         </div>
 
         <table class="table responsive">
@@ -18,6 +16,7 @@
                     <th scope="col">Email</th>
                     <th scope="col">Phone</th>
                     <th scope="col">Duty Time</th>
+                    <th scope="col">Approve</th>
                     <th scope="col">Action</th>
 
                 </tr>
@@ -30,6 +29,7 @@
                         <td> 
                             {{ $row->email }}
                         </td>
+                        
                         <td> 
                             @if ($row->phone)
                                 
@@ -41,12 +41,22 @@
                         <td>
                            {{$row->duty_time}} 
                         </td>
-                        
+                        <td> 
+                            @if ($row->is_approved == true)
+                                <span class="badge text-white bg-info">Approved</span>
+                                @else
+                                <form action="{{route('rider.approve',$row->id)}}" method="post">
+                                    @csrf
+                                    @method('PUT')
+                                    <small><button type="submit" class="btn btn-info btn-sm">Approve Now</button></small>
+                                </form>
+                            @endif
+                        </td>
 
 
                         <td>
 
-                            <a class="btn btn-primary btn-sm" href="{{route('rider.edit',$row->id)}}"><i class="fa-solid fa-pen-to-square"></i></a>
+                            
 
                             <form 
                             class="d-inline"

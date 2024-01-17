@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
             $table->string('booking_id');
-            $table->integer('user_id');
+            $table->unsignedBigInteger('user_id');
             $table->integer('rider_id');
             $table->string('status');
             $table->integer('viewing_pin')->nullable();
@@ -44,7 +44,10 @@ return new class extends Migration
             $table->integer('weight_range');
             $table->integer('price')->nullable();
             $table->string('vehicle')->nullable();
+            $table->mediumText('note')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

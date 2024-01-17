@@ -4,14 +4,23 @@
             <div class="row">
                 <div class="col-md-6 mb-5">
                     <h3 class="text-primary mb-4">Get In Touch</h3>
-                    <p><i class="fa fa-map-marker-alt mr-2"></i>123 Street, UTTARA, DHAKA BANGLADESH</p>
-                    <p><i class="fa fa-phone-alt mr-2"></i>01580513838XXXX</p>
-                    <p><i class="fa fa-envelope mr-2"></i>shekshadeq@gmail.com</p>
+                    <p><i class="fa fa-map-marker-alt mr-2"></i>{{Cache::get('store')->address}}</p>
+                    <p><i class="fa fa-phone-alt mr-2"></i>{{Cache::get('store')->phone}}</p>
+                    <p><i class="fa fa-envelope mr-2"></i>{{Cache::get('store')->email}}</p>
                     <div class="d-flex justify-content-start mt-4">
-                        <a class="btn btn-outline-light btn-social mr-2" href="#"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-outline-light btn-social mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-outline-light btn-social mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a class="btn btn-outline-light btn-social" href="#"><i class="fab fa-instagram"></i></a>
+                        @if (Cache::get('store')->twitter)
+                        <a class="btn btn-outline-light btn-social mr-2" target="_blank" href="{{Cache::get('store')->twitter}}"><i class="fab fa-twitter"></i></a>
+                        @endif
+                        @if (Cache::get('store')->facebook)
+                        <a class="btn btn-outline-light btn-social mr-2" target="_blank" href="{{Cache::get('store')->facebook}}"><i class="fab fa-facebook-f"></i></a>
+                        @endif
+                        @if (Cache::get('store')->linkedin)
+                        <a class="btn btn-outline-light btn-social mr-2" target="_blank" href="{{Cache::get('store')->linkedin}}"><i class="fab fa-linkedin-in"></i></a>
+                        @endif
+                        @if (Cache::get('store')->instagram)                     
+                        <a class="btn btn-outline-light btn-social" target="_blank" href="{{Cache::get('store')->instagram}}"><i class="fab fa-instagram"></i></a>
+                        @endif
+                       
                     </div>
                 </div>
                 <div class="col-md-6 mb-5">
@@ -28,7 +37,7 @@
         </div>
         <div class="col-lg-5 col-md-6 mb-5">
             <h3 class="text-primary mb-4">Online Courier and Parcel Booking System</h3>
-            <p>Our courier organization that delivers your parcel,packages or doccuments from one place or person to another place or person. Typically, our courier organization provides your courier inside DHAKA</p>
+            <p>Our courier organization delivers your parcel,packages or doccuments from one place or person to another place or person. Typically, our courier organization provides your courier inside Dhaka.</p>
             <div class="w-100">
                 <div class="input-group">
                     <input type="text" class="form-control border-light" style="padding: 30px;" placeholder="Your Email Address">
@@ -43,10 +52,10 @@
 <div class="container-fluid bg-dark text-white border-top py-4 px-sm-3 px-md-5" style="border-color: #3E3E4E !important;">
     <div class="row">
         <div class="col-lg-6 text-center text-md-left mb-3 mb-md-0">
-            <p class="m-0 text-white">&copy; <a href="#">Your Site Name</a>. All Rights Reserved.
+            <p class="m-0 text-white">&copy; <a href="#">{{Cache::get('store')->name}}</a>. All Rights Reserved.
 
             <!--/*** This template is free as long as you keep the footer author’s credit link/attribution link/backlink. If you'd like to use the template without the footer author’s credit link/attribution link/backlink, you can purchase the Credit Removal License from "https://htmlcodex.com/credit-removal". Thank you for your support. ***/-->
-            Designed by <a href="https://htmlcodex.com">SHADEQ</a>
+            Designed by <a target="_blank" href="https://www.facebook.com/techstacktm/">TechStack</a>
             </p>
         </div>
         <div class="col-lg-6 text-center text-md-right">

@@ -1,10 +1,13 @@
 <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('admin/dashboard') }}">
-        <div class="sidebar-brand-icon rotate-n-15">
-            <i class="fa fa-truck mr-2"></i>
+        <div class="sidebar-brand-icon">
+            <img src="{{asset('img/logo.png')}}"
+            width="200px"
+            height="100%"
+            alt="logo">
+            
         </div>
-        <div class="sidebar-brand-text mx-3"> {{ env('APP_NAME') }}</div>
     </a>
 
     <!-- Divider -->
@@ -46,7 +49,7 @@
 
 
     <li class="nav-item  {{ request()->is('admin/rider') ? 'active' : '' }} ">
-        <a class="nav-link" href="{{ route('rider') }}">
+        <a class="nav-link" href="{{ route('admin.rider') }}">
             <i class="fa-solid fa-user"></i>
             <span>Delivery Man</span></a>
     </li>
@@ -61,40 +64,23 @@
             <i class="fa-regular fa-flag"></i>
             <span>Report</span></a>
     </li>
+    <li class="nav-item  {{ request()->is('admin/contact') ? 'active' : '' }} ">
+        <a class="nav-link" href="{{route('contact.get')}}">
+            <i class="fa-solid fa-id-badge"></i>
+            <span>Contact Us</span></a>
+    </li>
+    <li class="nav-item  {{ request()->is('admin/shop') ? 'active' : '' }} ">
+        <a class="nav-link" href="{{route('shop')}}">
+            <i class="fa-solid fa-shop"></i>
+            <span>Shop</span>
+        </a>
+    </li>
 
+    
 
     <!-- Divider -->
     <hr class="sidebar-divider">
 
-    <!-- Heading -->
-    <div class="sidebar-heading">
-
-    </div>
-
-    <!-- Nav Item - Pages Collapse Menu -->
-
-    <!-- Nav Item - Utilities Collapse Menu -->
-
-
- 
-
-    <!-- Heading -->
-    <div class="sidebar-heading">
-
-    </div>
-
-    <!-- Nav Item - Pages Collapse Menu -->
-
-
-    <!-- Nav Item - Charts -->
-
-
-
-
-    <!-- Sidebar Toggler (Sidebar) -->
-
-
-    <!-- Sidebar Message -->
-
+  
 
 </ul>

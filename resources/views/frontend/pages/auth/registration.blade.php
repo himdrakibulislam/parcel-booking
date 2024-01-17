@@ -65,7 +65,7 @@
                 <div class="form-group">
                     <button type="submit" class="btn btn-success btn-lg btn-block">Registration</button>
                 </div>
-                <p>Already have account??<a href="/login" class="float-right btn btn-success">Login</a></p>
+              <a href="/login" >Already have account?</a>
             </form>
 
         </div>

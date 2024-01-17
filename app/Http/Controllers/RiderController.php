@@ -5,51 +5,86 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Rider;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class RiderController extends Controller
 {
-    public function rider()
+    
+    public function dashboard()
     {
-        $riders = Rider::paginate(10);
-        return view('backend.pages.rider.rider', compact('riders'));
+        return view('rider.dashboard');
+    }
+    
+    public function register_form()
+    {
+        return view('rider.auth.register');
+    }
+    public function login_form()
+    {
+        return view('rider.auth.login');
+    }
+    public function login(Request $request)
+    {
+        $credentials = $request->validate([
+            'email' => ['required', 'email'],
+            'password' => ['required'],
+        ]);
+        
+        if (Auth::guard('rider')->attempt($credentials)) {
+            $request->session()->regenerate();
+            return redirect()->route('rider.dashboard');
+        }
+ 
+        return back()->withErrors([
+            'email' => 'The provided credentials do not match our records.',
+        ])->onlyInput('email');
     }
 
-    public function create()
-    {
-        return view('backend.pages.rider.create');
-    }
+    public function register(Request $request){
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|unique:riders',
+            'duty_time' => 'required',
+            'password' => 'required|confirmed',
+        ]);
 
-    public function store(Request $request){
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'duty_time' => 'required',
-          
-        ]);
-        Rider::create($request->all());
-        return redirect()->route('rider')->with('status','Rider store Successfully');
-    }
-    public function edit(int $id){
-       $rider =  Rider::findOrFail($id);
-        return view('backend.pages.rider.edit',compact('rider'));
-    }
-    public function update(Request $request,int $id){
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'duty_time' => 'required',
-        ]);
-        Rider::whereId($id)->update([
+        $rider = Rider::create([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
-            'duty_time' => $request->duty_time
+            'duty_time' => $request->duty_time,
+            'ip' => $request->ip(),
+            'password' => Hash::make($request->password),
         ]);
-        return redirect()->route('rider')->with('status','Rider updated Successfully');
-       
+        Auth::guard('rider')->login($rider);
+
+        return redirect()->route('rider.dashboard');
     }
+
+    public function logout(){
+        Auth::guard('rider')->logout();
+        return redirect()->route('rider.login.form');
+    }
+    // admin
+    public function rider()
+    {
+        $riders = DB::table('riders')->paginate(10);
+        return view('backend.pages.rider.rider', compact('riders'));
+    }
+    public function rider_approve(int $id)
+    {
+        $riders = DB::table('riders')
+        ->where('id',$id)
+        ->update(['is_approved' => true]);
+
+        return redirect()->route('admin.rider')->with('status','Rider Approved.');
+        
+    }
+
     public function delete_rider(int $id){
-        Rider::destroy($id);
-        return redirect()->route('rider')->with('status','Rider Removed');
+        DB::table('riders')->where('id',$id)->delete();
+        return redirect()->route('admin.rider')->with('status','Rider Removed');
     }
 }

@@ -5,20 +5,17 @@ use App\Http\Controllers\Admin\AdminLoginController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\SendercustomerController;
-use App\Http\Controllers\ReceivercustomerController;
 
-use App\Http\Controllers\ShipmentController;
 use App\Http\Controllers\BookingController;
 use App\Http\Controllers\WarehouseController;
-use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\RiderController;
 use App\Http\Controllers\Website\RegistrationController;
-use App\Http\Controllers\Website\ContactController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\WeightController;
+use App\Http\Controllers\ShopController;
 //........... Admin routes ..........//
 // auth 
 Route::controller(AdminLoginController::class)
@@ -29,8 +26,14 @@ Route::controller(AdminLoginController::class)
     });
 
 
-Route::get('admin/dashboard', [DashboardController::class, 'dashboard'])->name('dashboard')->middleware('admin');
-
+ 
+Route::middleware('admin')
+      ->prefix('admin')
+      ->controller(DashboardController::class)
+      ->group(function (){
+        Route::get('/dashboard','dashboard')->name('dashboard');
+        Route::post('/optimize','optimize')->name('optimize');
+});
 //admin
 Route::middleware('admin')->prefix('admin')->controller(AdminController::class)->group(function () {
     Route::get('/profile', 'profile');
@@ -80,13 +83,10 @@ Route::middleware('admin')->prefix('admin')->controller(WeightController::class)
 
 Route::middleware('admin')->prefix('admin')->controller(RiderController::class)->group(function () {
 
-    Route::get('/rider', 'rider')->name('rider');
-    Route::get('/rider-create', 'create')->name('rider.add');
+    Route::get('/rider', 'rider')->name('admin.rider');
+    Route::put('/rider-approve/{id}', 'rider_approve')->name('rider.approve');
     
-    Route::get('/rider-edit/{id}', 'edit')->name('rider.edit');
-
-    Route::put('/rider-update/{id}', 'update')->name('update.rider');
-    Route::post('/add-rider', 'store')->name('create.rider');
+    
     Route::delete('/rider-remove/{id}', 'delete_rider')->name('rider.remove');
     
 });
@@ -130,4 +130,18 @@ Route::middleware('admin')->prefix('admin')->controller(ReportController::class)
        Route::get('/report','report')->name('report');
        Route::get('/report-status-wise','report_staus_wise');
     
+});
+// shop 
+
+Route::middleware('admin')->prefix('admin')->controller(ShopController::class)->group(function () {
+       Route::get('/shop','shop')->name('shop');
+       Route::post('/shop-add/{id}','store')->name('store.add');
+    
+});
+// contact
+
+Route::middleware('admin')->prefix('admin')->controller(ContactController::class)->group(function () {
+       Route::get('/contact','contact')->name('contact.get');
+       Route::delete('/contact-remove/{id}','contact_remove')->name('contact.remove');
+      
 });

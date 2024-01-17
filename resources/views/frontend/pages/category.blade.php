@@ -2,23 +2,16 @@
 @section('title','Category')
 @section('content')
 <div class="container my-4">
-    <h3 class="text-center">Categories</h3>
+    <h3 class="text-muted my-4">Categories</h3>
     
-    <table class="table">
-        <thead>
-            <tr>
-                <th >#</th>
-                <th >Name</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach ($categories as $key => $row)
-            <tr>
-                <td>{{$key+1}}</td>
-                <td><b>{{$row->Name}}</b></td>
-            </tr>
-            @endforeach           
-        </tbody>
-    </table>
+    <div class="row">
+        @foreach ($categories as $key => $row)        
+        <div class="card col-md-4">
+            <div class="card-body text-center">
+               <h4 class="text-muted"> {{$row->Name}}</h4>
+            </div>
+        </div>
+        @endforeach       
+    </div>   
 </div>
 @endsection

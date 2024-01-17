@@ -10,6 +10,7 @@
     <meta name="author" content="">
 
     <title>@yield('title', 'Dashboard')</title>
+    <link href="img/favicon.ico" rel="icon">
     {{-- fw icon cdn  --}}
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -24,6 +25,9 @@
 
     <!-- Custom styles for this template-->
     <link href="{{asset('css/sb-admin-2.min.css')}}" rel="stylesheet">
+
+        <!-- Toastify css -->
+  <link  href="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.css" rel="stylesheet" />
 
 </head>
 
@@ -129,8 +133,20 @@
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
-    @stack('custom-script')
 
+     <!-- Toastify js -->
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastify-js/1.6.1/toastify.js"></script>
+
+     @if (session('status'))
+     <script>
+       // swal("{{session('status')}}","" ,"success");
+       Toastify({text:'{{session('status')}}',duration:2000}).showToast();
+     </script>
+   
+       
+   @endif
+
+    @stack('custom-script')
 </body>
 
 </html>

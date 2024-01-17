@@ -41,24 +41,6 @@
                   <input type="text" name="Description" class="form-control" id=""  placeholder="Enter Description">
                 </div>
 
-
-
-
-
-
-
-
-
-
-             
-
-
-
-
-
-
-
-
                         <div>
                             <button class="btn btn-dark btn-block border-0 py-3" type="submit">Booking</button>
                         </div>

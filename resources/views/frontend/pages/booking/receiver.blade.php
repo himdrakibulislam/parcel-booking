@@ -164,7 +164,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>#ID</th>
+                            <th>#Tracking ID</th>
                             <th><a href="#">{{ $booking->booking_id }}</a></th>
                         </tr>
                         @if ($booking->category)

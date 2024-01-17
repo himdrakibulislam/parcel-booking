@@ -49,14 +49,13 @@
         <div class="form-group">
             <input name="password" type="password" class="form-control" placeholder="Password" required="required">
         </div>
+        
         <div class="form-group">
             <button type="submit" class="btn btn-success btn-lg btn-block">Log in</button>
         </div>
-            <p>Dont have account<a href="{{route('registration')}}" class="float-right btn btn-success">Register</a></p>
-
-            <a  href="{{url('admin/login')}}"
-            style="text-decoration: underline;"
-            >Admin Login</a>
+        <a href="{{url('/forgot-password')}}" class="my-2">Forgot password ?</a>  
+        <br>
+        <a href="{{route('registration')}}">Dont have account?</a>
     </form> 
 
 </div>
