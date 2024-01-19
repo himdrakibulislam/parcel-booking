@@ -39,10 +39,20 @@
 
     <div class="container">
         <div class="row my-4 border rounded p-2">
-            <h5>Select Paymentmethod</h5>
+            <h5 >Select Paymentmethod</h5>
+            
             <div class="row">
                 <div class="col-md-6">
-                   
+                  <form class="border px-2 py-4 rounded" action="{{ route('booking.condition') }}" method="POST">
+                    @csrf
+
+                    <div class="border px-1 py-2 mb-2">
+                        <label for="condition">Cash on Delivery </label>
+                        <input type="checkbox" name="condition" id="" value="condition" required>
+                        <input hidden type="text" name="booking_id" value="{{ $booking->id }}" id="">
+                    </div>
+                    <button type="submit" class="btn btn-outline-success btn-sm w-100">Book Now</button>
+                </form>
     
                     <form action="{{ url('/pay') }}" method="post">
                         @csrf
@@ -59,26 +69,19 @@
                     </form>
                 </div>
                 <div class="col-md-6">
-                    <form action="{{ route('booking.condition') }}" method="POST">
-                        @csrf
-    
-                        <div class="border px-1 py-2 mb-2">
-                            <label for="condition">Cash on Delivery </label>
-                            <input type="checkbox" name="condition" id="" value="condition" required>
-                            <input hidden type="text" name="booking_id" value="{{ $booking->id }}" id="">
-                        </div>
-                        <button type="submit" class="btn btn-outline-success btn-sm w-100">Book Now</button>
-                    </form>
-
-                    <a href="">
-                        
-                    </a>
+                    
 
                     <form action="{{ route('pay.stripe') }}" method="POST" class="my-3 shadow p-2" id="payment-form">
                       {{-- {{ csrf_field() }} --}}
                       @csrf
                       <input type="hidden" name="booking_id" value="{{$booking->id}}">
-                      <h5 class="text-center text-info">Pay With Stripe</h5>
+                      <div class="text-center">
+                        <img 
+                        width="100px"
+                        height="100%"
+                        src="{{asset('img/stripe.png')}}" 
+                        alt="">
+                      </div>
                       <div class="form-group">
                           <label for="email">Email Address</label>
                           <input type="email" value="{{Auth::user()->email}}" class="form-control" id="email" required>
